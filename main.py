@@ -1,21 +1,17 @@
 import random
+
 from astrbot.api import logger
 from astrbot.api.event import filter
-from astrbot.api.star import Context, Star, register
+from astrbot.api.star import Context, Star
 from astrbot.core.message.components import At, Plain, Reply
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
     AiocqhttpMessageEvent,
 )
+
+from .eg_md import astrbot_md, multimsg_md
 from .utils import get_ats, get_reply_id
-from .eg_md import multimsg_md, astrbot_md
 
 
-@register(
-    "astrbot_plugin_multimsg",
-    "Zhalslar",
-    "Multimsg插件",
-    "v1.0.2",
-)
 class MultimsgPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
@@ -315,20 +311,3 @@ class MultimsgPlugin(Star):
         event.stop_event()
         return
 
-    # @filter.command("发音卡")
-    # async def send_card(self, event: AiocqhttpMessageEvent):
-    #     "发音卡"
-    #     data = {
-    #         "appid": 100951776,
-    #         "name": "哔哩哔哩",
-    #         "icon": "https://p.qpic.cn/qqconnect/0/app_101706348_1603432225/100?max-age=2592000&t=0",
-    #         "package_name": "tv.danmaku.bili",
-    #         "sign": "7194d531cbe7960a22007b9f6bdaa38b",
-    #         "getMusicInfo": "getBiLi"
-    #     }
-    #     group_id = event.get_group_id()
-    #     pb_hex = self.card.build(data, int(group_id))
-    #     await event.bot.api.call_action(
-    #         "send_packet", cmd="MessageSvc.PbSendMsg", data=pb_hex
-    #     )
-    #     event.stop_event()
