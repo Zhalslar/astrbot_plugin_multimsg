@@ -1,5 +1,7 @@
 from astrbot.core.message.components import At, Reply
-from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import AiocqhttpMessageEvent
+from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
+    AiocqhttpMessageEvent,
+)
 
 
 def get_ats(event: AiocqhttpMessageEvent) -> list[int]:
