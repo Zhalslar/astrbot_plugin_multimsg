@@ -3,18 +3,19 @@ import random
 from astrbot.api import logger
 from astrbot.api.event import filter
 from astrbot.api.star import Context, Star
+from astrbot.core.config.astrbot_config import AstrBotConfig
 from astrbot.core.message.components import At, Plain, Reply
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
     AiocqhttpMessageEvent,
 )
 
-from .eg_md import astrbot_md, multimsg_md
 from .utils import get_ats, get_reply_id
 
 
 class MultimsgPlugin(Star):
-    def __init__(self, context: Context):
+    def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
+        self.config = config
 
     async def send(
         self, event: AiocqhttpMessageEvent, payload: dict, forward: bool = False
@@ -124,7 +125,7 @@ class MultimsgPlugin(Star):
                 ]
                 message.extend(at_msg(uid) for uid in set(target_ids))
         if text:
-            message.append({"type": "text", "data": {"text": " "+text}})
+            message.append({"type": "text", "data": {"text": " " + text}})
         await self.send(event, {"message": message})
 
     @filter.command("contact", alias={"推荐"})
@@ -192,10 +193,10 @@ class MultimsgPlugin(Star):
 
     @filter.command("markdown", alias={"md"})
     async def send_md(self, event: AiocqhttpMessageEvent, content: str = ""):
-        """发送markdown消息, 预设文件在eg_md.py中"""
+        """发送markdown消息"""
         sender_id = int(event.get_self_id())
         sender_name = event.get_sender_name()
-        content = content or random.choice([multimsg_md, astrbot_md])
+        content = content.partition(" ")[2] or self.config["default_md"]
         payload = {
             "message": [
                 {
@@ -310,4 +311,3 @@ class MultimsgPlugin(Star):
                 logger.error(f"[MultimsgPlugin] 转发到群 {group_id} 出错: {e}")
         event.stop_event()
         return
-
