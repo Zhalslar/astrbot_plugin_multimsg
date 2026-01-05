@@ -192,11 +192,11 @@ class MultimsgPlugin(Star):
         await self.send(event, payload)
 
     @filter.command("markdown", alias={"md"})
-    async def send_md(self, event: AiocqhttpMessageEvent, content: str = ""):
+    async def send_md(self, event: AiocqhttpMessageEvent):
         """发送markdown消息"""
         sender_id = int(event.get_self_id())
         sender_name = event.get_sender_name()
-        content = content.partition(" ")[2] or self.config["default_md"]
+        content = event.message_str.partition(" ")[2] or self.config["default_md"]
         payload = {
             "message": [
                 {
