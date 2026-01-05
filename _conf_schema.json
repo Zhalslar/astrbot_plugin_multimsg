@@ -3,8 +3,10 @@
         "description": "默认Markdown消息",
         "type": "text",
         "hint": "发送 “md” 指令时，若不指定内容则默认发送此消息",
+        "obvious_hint": true,
         "editor_mode": true,
         "editor_language": "markdown",
+        "editor_theme": "vs-dark",
         "default": "# [MultiMsg插件](https://github.com/Zhalslar/astrbot_plugin_multimsg)\n\n## 📦 安装\n\n- 插件市场搜索 **multimsg** 安装\n- 也可用 git 安装：\n\n```bash\ncd /AstrBot/data/plugins\ngit clone https://github.com/Zhalslar/astrbot_plugin_multimsg\n```\n\n### 命令表\n| 命令      | 功能描述         |\n| --------- | ---------------- |\n| `md <内容>`  | 发送 markdown 消息 |"
     }
 }
