@@ -128,48 +128,6 @@ class MultimsgPlugin(Star):
             message.append({"type": "text", "data": {"text": " " + text}})
         await self.send(event, {"message": message})
 
-    @filter.command("contact", alias={"推荐"})
-    async def contact(self, event: AiocqhttpMessageEvent):
-        """推荐 群号/@群友/@qq"""
-        args = event.message_str.removeprefix("推荐").strip().split()
-        gids, uids = [], []
-        for arg in args:
-            if arg.isdigit():
-                gids.append(arg)
-            elif arg.startswith("@") and arg[1:].isdigit():
-                uids.append(arg[1:])
-
-        uids.extend(get_ats(event))
-
-        if not uids and not gids:
-            if random.random() < 0.5:
-                friend_list = await event.bot.get_friend_list()
-                uids.append(random.choice(friend_list)["user_id"])
-            else:
-                group_list = await event.bot.get_group_list()
-                gids.append(random.choice(group_list)["group_id"])
-
-        if uids:
-            for uid in uids:
-                payload = {
-                    "message": [
-                        {"type": "contact", "data": {"type": "qq", "id": int(uid)}}
-                    ],
-                }
-                await self.send(event, payload)
-            return
-
-        if not gids:
-            group_list = await event.bot.get_group_list()
-            gids.append(random.choice(group_list)["group_id"])
-        for gid in gids:
-            payload = {
-                "message": [
-                    {"type": "contact", "data": {"type": "group", "id": int(gid)}}
-                ],
-            }
-            await self.send(event, payload)
-
     @filter.command("music")
     async def send_music(
         self,

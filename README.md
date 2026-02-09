@@ -33,11 +33,12 @@ _✨ Multimsg插件 ✨_
 | `dice` / `骰子`           | 发送骰子表情             |
 | `rps` / `猜拳` / `石头` / `剪刀` / `布` | 发送猜拳表情 |
 | `at QQ` / `at @某人` / `at all` | @指定用户或全体成员 |
-| `contact 群号/@群友/@qq` | 推荐联系人或群           |
 | `music <平台> <ID>`      | 发送音乐卡片（QQ/网易云等） |
 | `markdown` / `md`        | 发送 Markdown 消息       |
 | `node 标题 内容` (需引用消息) | 发送合并转发节点消息 |
 | `forward` / `转发`       | 转发引用的消息给好友/群  |
+
+> 注意: `contact 群号/@群友/@qq`(推荐联系人或群) 命令已迁移到 [人际关系管理器]( https://github.com/Zhalslar/astrbot_plugin_relationship)
 
 ## 👥 贡献指南
 
